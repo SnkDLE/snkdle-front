@@ -77,7 +77,14 @@ const Image = () => {
   return (
     <Container.Base>
       {snkPersonal ? (
-        <>
+        <div
+          style={{
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+            backgroundColor: "#f9fafb",
+          }}
+        >
           <Typography.Title>
             {snkPersonal ? snkPersonal.name : "Loading character..."}
           </Typography.Title>
@@ -124,7 +131,7 @@ const Image = () => {
           )}
 
           <Typography.Paragraph>Tentatives: {attempt}</Typography.Paragraph>
-        </>
+        </div>
       ) : (
         <p>Loading...</p>
       )}
