@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { Container, Typography } from "../atoms";
-import { ImageFloue } from "../organism/Image";
+import { Image } from "../organism";
 
-const Image = () => {
+const ImagePage = () => {
   const [snkPersonal, setSnkPersonal] = useState(null);
   const [listeSnkPersonal, setListeSnkPersonal] = useState([]);
   const [persoSelectionne, SetPersoSelectionne] = useState("");
@@ -88,9 +88,9 @@ const Image = () => {
           <Typography.Title>
             {snkPersonal ? snkPersonal.name : "Loading character..."}
           </Typography.Title>
-          <ImageFloue
+          <Image.ImageFloue
             maxTentatives={10}
-            imageUrl={snkPersonal.img.split("/revision")[0]}
+            imageUrl={snkPersonal?.img?.split("/revision")[0]}
             children={attempt}
           />
           <div>
@@ -139,4 +139,4 @@ const Image = () => {
   );
 };
 
-export default Image;
+export default ImagePage;

@@ -10,7 +10,7 @@ import { Accueil, Clock, Test } from "./components/pages";
 import { Container, Icons, Typography } from "./components/atoms";
 import About from "./components/pages/About";
 import Classique from "./components/pages/Classique";
-import Image from "./components/pages/Image";
+import ImagePage from "./components/pages/Image";
 
 function App() {
   const nightTheme = {
@@ -45,7 +45,7 @@ function App() {
     window.matchMedia("(prefers-color-scheme: dark)").matches
   );
   let context = useContext(NightModeContext);
-  const [slug, setSlug] = useState("image");
+  const [slug, setSlug] = useState("classique");
   const [logged, setLogged] = useState(false);
   const [isDeployed, setIsDeployed] = useState(true);
 
@@ -56,7 +56,7 @@ function App() {
       case "classique":
         return <Classique></Classique>;
       case "image":
-        return <Image></Image>;
+        return <ImagePage></ImagePage>;
       case "about":
         return <About></About>;
     }
@@ -145,6 +145,7 @@ function App() {
             </>
           ) : null}
         </Menu.Bar>
+        {getPageContent()}
         <Menu.SousMenu>
           {sousMenu.map((x, i) => {
             return (
@@ -159,7 +160,6 @@ function App() {
             );
           })}
         </Menu.SousMenu>
-        {getPageContent()}
       </NightModeProvider>
     </ThemeProvider>
   );
