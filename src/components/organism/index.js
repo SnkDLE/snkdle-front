@@ -1,3 +1,4 @@
 import TodoList from "./TodoList";
+import ImageFloue from "./Image";
 
-export { TodoList };
+export { TodoList, ImageFloue };

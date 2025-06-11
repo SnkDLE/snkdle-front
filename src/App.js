@@ -45,7 +45,7 @@ function App() {
     window.matchMedia("(prefers-color-scheme: dark)").matches
   );
   let context = useContext(NightModeContext);
-  const [slug, setSlug] = useState("home");
+  const [slug, setSlug] = useState("image");
   const [logged, setLogged] = useState(false);
   const [isDeployed, setIsDeployed] = useState(true);
 
