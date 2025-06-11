@@ -6,6 +6,7 @@ const Paragraph = styled.p`
       color ?? theme?.typography?.paragraph ?? theme?.default?.color ?? "black"
     );
   }};
+  font-size: 16px;
 `;
 
 export default Paragraph;
