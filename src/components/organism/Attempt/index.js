@@ -1,3 +1,4 @@
+import ListeAttemptClassique from "./ListeAttemptClassique";
 import ListeAttempt from "./ListeAttempt";
 
-export { ListeAttempt };
+export { ListeAttemptClassique, ListeAttempt };

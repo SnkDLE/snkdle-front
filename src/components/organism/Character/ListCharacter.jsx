@@ -7,6 +7,7 @@ const ListCharacter = ({
   setAttempt,
   setListeAttempts,
   snkPersonal,
+  estClassique,
 }) => {
   const [listeSnkPersonal, setListeSnkPersonal] = useState([]);
   const [perso, setPerso] = useState("");
@@ -49,10 +50,14 @@ const ListCharacter = ({
     setPerso("");
     setShowDropdown(false);
     setAttempt(attempt + 1);
-    compareCharacters(character, snkPersonal);
+    if (estClassique) {
+      compareCharactersClassique(character, snkPersonal);
+    } else {
+      compareCharacters(character, snkPersonal);
+    }
   };
 
-  const compareCharacters = (character, snkPersonal) => {
+  const compareCharactersClassique = (character, snkPersonal) => {
     let nameColor = "";
     if (snkPersonal.name === character.name) {
       nameColor = "green";
@@ -83,6 +88,24 @@ const ListCharacter = ({
         ageColor: ageColor,
         gender: character.gender,
         genderColor: genderColor,
+      },
+      ...prevAttempt,
+    ]);
+  };
+
+  const compareCharacters = (character, snkPersonal) => {
+    let nameColor = "";
+    if (snkPersonal.name === character.name) {
+      nameColor = "green";
+    } else {
+      nameColor = "red";
+    }
+
+    setListeAttempts((prevAttempt) => [
+      {
+        img: character?.img?.split("/revision")[0],
+        name: character.name,
+        nameColor: nameColor,
       },
       ...prevAttempt,
     ]);

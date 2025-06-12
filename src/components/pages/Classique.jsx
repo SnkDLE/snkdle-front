@@ -35,8 +35,12 @@ const Classique = () => {
         setAttempt={setAttempt}
         setListeAttempts={setListeAttempts}
         snkPersonal={snkPersonal}
+        estClassique={true}
       />
-      <Attempt.ListeAttempt ListeAttempt={listeAttempts} attempt={attempt} />
+      <Attempt.ListeAttemptClassique
+        ListeAttempt={listeAttempts}
+        attempt={attempt}
+      />
     </Container.Base>
   );
 };
