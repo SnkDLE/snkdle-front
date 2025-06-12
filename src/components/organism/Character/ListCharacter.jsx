@@ -8,6 +8,7 @@ const ListCharacter = ({
   setListeAttempts,
   snkPersonal,
   estClassique,
+  setIsWinner,
 }) => {
   const [listeSnkPersonal, setListeSnkPersonal] = useState([]);
   const [perso, setPerso] = useState("");
@@ -91,6 +92,7 @@ const ListCharacter = ({
       },
       ...prevAttempt,
     ]);
+    setIsWinner(snkPersonal.id === character.id);
   };
 
   const compareCharacters = (character, snkPersonal) => {
@@ -109,6 +111,8 @@ const ListCharacter = ({
       },
       ...prevAttempt,
     ]);
+
+    setIsWinner(snkPersonal.id === character.id);
   };
 
   const handleInputBlur = () => {
