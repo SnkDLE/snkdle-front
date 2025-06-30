@@ -35,7 +35,7 @@ const ImageFloue = ({ children, maxTentatives = 10, imageUrl }) => {
             color: !estIndice ? "#111827" : "#9ca3af",
           }}
         >
-          {estIndice ? "Indice activé" : "Indice désactivé"}
+          Chaque essai défloute un peu l'image
         </span>
 
         <button

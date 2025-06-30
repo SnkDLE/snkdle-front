@@ -2,7 +2,7 @@ import React from "react";
 import { Container, Typography } from "../../atoms";
 import { Attempt } from "../../molecules";
 
-const ListeAttempt = ({ ListeAttempt, attempt }) => {
+const ListeAttemptClassique = ({ ListeAttempt, attempt }) => {
   return (
     <Container.Base>
       {ListeAttempt.length === 0 && attempt === 0 ? (
@@ -17,14 +17,16 @@ const ListeAttempt = ({ ListeAttempt, attempt }) => {
           <Container.Flex>
             <Typography.Paragraph>Image</Typography.Paragraph>
             <Typography.Paragraph>Name</Typography.Paragraph>
+            <Typography.Paragraph>Age</Typography.Paragraph>
+            <Typography.Paragraph>Gender</Typography.Paragraph>
           </Container.Flex>
         </Container.Base>
       )}
       {ListeAttempt.map((character, index) => (
-        <Attempt.Attempt character={character} key={index} />
+        <Attempt.AttemptClassique character={character} key={index} />
       ))}
     </Container.Base>
   );
 };
 
-export default ListeAttempt;
+export default ListeAttemptClassique;
