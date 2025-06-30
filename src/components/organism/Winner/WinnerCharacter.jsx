@@ -1,14 +1,18 @@
 import React from "react";
-import { Container } from "../../atoms";
+import { Container, Typography } from "../../atoms";
 import * as Winner from "../../molecules/Winner";
 
 const WinnerCharacter = ({ character, attempt }) => {
+  console.log("WinnerCharacter", character, attempt);
   return (
     <Container.Base>
-      <Container.Flex>
+      <Typography.Title>
+        Félicitations, vous avez trouvé le personnage !
+      </Typography.Title>
+      <Container.Base>
         <Winner.CharacterFound character={character} />
         <Winner.Statistique attempt={attempt} />
-      </Container.Flex>
+      </Container.Base>
     </Container.Base>
   );
 };

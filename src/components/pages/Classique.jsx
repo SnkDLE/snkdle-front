@@ -10,14 +10,17 @@ const Classique = () => {
   const [listeAttempts, setListeAttempts] = React.useState([]);
   const [snkPersonal, setSnkPersonal] = useState(null);
   const [isWinner, setIsWinner] = useState(false);
-  const randomNumber = Math.floor(Math.random() * 202) + 1;
 
   useEffect(() => {
+    const token = localStorage.getItem("auth_token");
     let config = {
       method: "get",
       maxBodyLength: Infinity,
-      url: "https://api.attackontitanapi.com/characters/" + randomNumber,
-      headers: {},
+      url: "https://localhost/api/character/daily",
+      headers: {
+        Authorization: `Bearer ${token}`,
+        "Content-Type": "application/json",
+      },
     };
     axios
       .request(config)
@@ -28,6 +31,7 @@ const Classique = () => {
         console.log(error);
       });
   }, []);
+
   return (
     <Container.Base>
       <Explainer.ExplainClassique />
@@ -46,7 +50,10 @@ const Classique = () => {
         attempt={attempt}
       />
       {isWinner && (
-        <Winner.WinnerCharacter attempt={attempt} Character={snkPersonal} />
+        <Winner.WinnerCharacter
+          attempt={attempt}
+          character={snkPersonal.data}
+        />
       )}
     </Container.Base>
   );

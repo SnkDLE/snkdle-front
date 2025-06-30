@@ -6,18 +6,21 @@ const AttemptClassique = ({ character }) => {
     <Container.Base>
       <Container.Flex>
         <img
-          src={character.img}
+          src={character.image}
           alt={character.name}
           style={{ width: "100px", height: "100px" }}
         />
-        <Typography.Response color={character.nameColor}>
-          {character.name}
-        </Typography.Response>
         <Typography.Response color={character.ageColor}>
           {character.age}
         </Typography.Response>
         <Typography.Response color={character.genderColor}>
           {character.gender}
+        </Typography.Response>
+        <Typography.Response color={character.statusColor}>
+          {character.status}
+        </Typography.Response>
+        <Typography.Response color={character.speciesColor}>
+          {character.species}
         </Typography.Response>
       </Container.Flex>
     </Container.Base>
