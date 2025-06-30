@@ -16,7 +16,7 @@ const AppContent = () => {
   const { isAuthenticated, logout, user } = useContext(AuthContext);
   const [slug, setSlug] = useState("classique");
   const [slugLogin, setSlugLogin] = useState("login");
-  const [isDeployed, setIsDeployed] = useState(true);
+  const [isDeployed, setIsDeployed] = useState(false);
 
   const getPageContent = () => {
     switch (slug) {

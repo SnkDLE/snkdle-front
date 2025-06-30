@@ -7,13 +7,12 @@ const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
 
   const checkToken = async () => {
-    const token = localStorage.getItem("auth_token");
-    if (!token) return;
-
     try {
-      const response = await fetch("http://localhost:8000/api/auth/me", {
+      const token = localStorage.getItem("auth_token");
+      const response = await fetch("https://localhost/api/auth/me", {
         headers: {
           Authorization: `Bearer ${token}`,
+          "Content-Type": "application/json",
         },
       });
 
@@ -22,10 +21,11 @@ const AuthProvider = ({ children }) => {
         setIsAuthenticated(true);
         setUser(data);
       } else {
+        console.warn("Token invalide ou expiré");
         logout();
       }
     } catch (error) {
-      logout();
+      console.log("Erreur lors de la vérification du token:", error);
     }
   };
 
@@ -34,16 +34,20 @@ const AuthProvider = ({ children }) => {
   }, []);
 
   const login = (token) => {
+    if (!token) {
+      console.error("Token is required for login");
+      return;
+    }
     localStorage.setItem("auth_token", token);
     setIsAuthenticated(true);
-    checkToken(); // recharge les infos user
+    checkToken();
   };
 
   const logout = async () => {
     const token = localStorage.getItem("auth_token");
 
     try {
-      await fetch("http://localhost:8000/api/auth/logout", {
+      await fetch("https://localhost/api/auth/logout", {
         method: "POST",
         headers: {
           Authorization: `Bearer ${token}`,

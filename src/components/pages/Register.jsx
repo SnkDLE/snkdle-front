@@ -15,7 +15,7 @@ const RegisterPage = ({ switchToLogin }) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const res = await fetch("http://localhost:8000/api/auth/register", {
+      const res = await fetch("https://localhost/api/auth/register", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(form),
@@ -24,7 +24,7 @@ const RegisterPage = ({ switchToLogin }) => {
       const data = await res.json();
 
       if (res.ok) {
-        login(data.token); // auto-login après inscription
+        login(data.apiToken); // auto-login après inscription
       } else {
         alert(data.error || "Erreur d'inscription");
       }

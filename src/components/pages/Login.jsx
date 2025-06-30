@@ -10,7 +10,7 @@ const LoginPage = ({ switchToRegister }) => {
     e.preventDefault();
 
     try {
-      const response = await fetch("http://localhost:8000/api/auth/login", {
+      const response = await fetch("https://localhost/api/auth/login", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ login: loginValue, password }),
@@ -18,7 +18,7 @@ const LoginPage = ({ switchToRegister }) => {
 
       if (response.ok) {
         const data = await response.json();
-        login(data.token);
+        login(data.apiToken);
       } else {
         const err = await response.json();
         alert(err.error || "Erreur de connexion");
