@@ -9,6 +9,7 @@ const ListCharacter = ({
   snkPersonal,
   estClassique,
   setIsWinner,
+  setIsLooser,
 }) => {
   const [listeSnkPersonal, setListeSnkPersonal] = useState([]);
   const [perso, setPerso] = useState("");
@@ -20,18 +21,23 @@ const ListCharacter = ({
       return;
     }
 
+    const token = localStorage.getItem("auth_token");
+
     const timeoutId = setTimeout(() => {
       let config = {
         method: "get",
         maxBodyLength: Infinity,
-        url: "https://api.attackontitanapi.com/characters?name=" + perso,
-        headers: {},
+        url: "https://localhost/api/character/search?name=" + perso,
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "application/json",
+        },
       };
 
       axios
         .request(config)
         .then((response) => {
-          setListeSnkPersonal(response.data.results);
+          setListeSnkPersonal(response.data.data);
           setShowDropdown(true);
         })
         .catch((error) => {
@@ -58,46 +64,60 @@ const ListCharacter = ({
     }
   };
 
+  // mode classique / daily
   const compareCharactersClassique = (character, snkPersonal) => {
-    let nameColor = "";
-    if (snkPersonal.name === character.name) {
-      nameColor = "green";
-    } else {
-      nameColor = "red";
-    }
-
     let ageColor = "";
-    if (snkPersonal.age === character.age) {
+    if (snkPersonal.data.age === character.age) {
       ageColor = "green";
     } else {
       ageColor = "red";
     }
 
     let genderColor = "";
-    if (snkPersonal.gender === character.gender) {
+    if (snkPersonal.data.gender === character.gender) {
       genderColor = "green";
     } else {
       genderColor = "red";
     }
 
+    let status = "";
+    if (snkPersonal.data.status === character.status) {
+      status = "green";
+    } else {
+      status = "red";
+    }
+
+    const matches =
+      character?.species?.filter((s) => snkPersonal.data?.species?.includes(s))
+        .length || 0;
+    const total = character?.species?.length || 0;
+    const speciesColor =
+      matches === 0 ? "red" : matches === total ? "green" : "orange";
+
+    console.log(character);
+
     setListeAttempts((prevAttempt) => [
       {
-        img: character?.img?.split("/revision")[0],
-        name: character.name,
-        nameColor: nameColor,
+        image: character?.image?.split("/revision")[0],
         age: character.age,
         ageColor: ageColor,
         gender: character.gender,
         genderColor: genderColor,
+        status: character.status,
+        statusColor: status,
+        species: character.species.join(", "),
+        speciesColor: speciesColor,
       },
       ...prevAttempt,
     ]);
-    setIsWinner(snkPersonal.id === character.id);
+    setIsWinner(snkPersonal.data.id === character.id);
   };
 
+  // mode image
   const compareCharacters = (character, snkPersonal) => {
+    console.log("compareCharacters", character, snkPersonal);
     let nameColor = "";
-    if (snkPersonal.name === character.name) {
+    if (snkPersonal.data.id === character.id) {
       nameColor = "green";
     } else {
       nameColor = "red";
@@ -105,14 +125,17 @@ const ListCharacter = ({
 
     setListeAttempts((prevAttempt) => [
       {
-        img: character?.img?.split("/revision")[0],
+        image: character?.image?.split("/revision")[0],
         name: character.name,
         nameColor: nameColor,
       },
       ...prevAttempt,
     ]);
 
-    setIsWinner(snkPersonal.id === character.id);
+    setIsWinner(snkPersonal.data.id === character.id);
+    if (attempt >= 11 && snkPersonal.data.id !== character.id) {
+      setIsLooser(true);
+    }
   };
 
   const handleInputBlur = () => {
@@ -139,7 +162,7 @@ const ListCharacter = ({
               onClick={() => handleSelectCharacter(character)}
             >
               <img
-                src={character?.img?.split("/revision")[0]}
+                src={character?.image?.split("/revision")[0]}
                 alt={character.name}
                 style={{ width: "50px", height: "50px" }}
               />

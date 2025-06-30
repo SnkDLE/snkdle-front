@@ -16,9 +16,10 @@ const ListeAttemptClassique = ({ ListeAttempt, attempt }) => {
           <h2>Vos essais</h2>
           <Container.Flex>
             <Typography.Paragraph>Image</Typography.Paragraph>
-            <Typography.Paragraph>Name</Typography.Paragraph>
             <Typography.Paragraph>Age</Typography.Paragraph>
             <Typography.Paragraph>Gender</Typography.Paragraph>
+            <Typography.Paragraph>Status</Typography.Paragraph>
+            <Typography.Paragraph>Species</Typography.Paragraph>
           </Container.Flex>
         </Container.Base>
       )}

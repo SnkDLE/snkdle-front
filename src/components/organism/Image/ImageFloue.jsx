@@ -17,7 +17,7 @@ const ImageFloue = ({ children, maxTentatives = 10, imageUrl }) => {
           color: "#1f2937",
         }}
       >
-        Bouton Switch
+        Character Flou
       </h1>
 
       {/* Switch Button */}

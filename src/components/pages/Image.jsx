@@ -3,20 +3,26 @@ import axios from "axios";
 import { Container, Typography } from "../atoms";
 import { Image } from "../organism";
 import { Attempt, Character } from "../organism";
+import { Winner } from "../organism";
 
 const ImagePage = () => {
   const [snkPersonal, setSnkPersonal] = useState(null);
   const [listeAttempts, setListeAttempts] = React.useState([]);
   const [attempt, setAttempt] = useState(0);
-  const randomNumber = Math.floor(Math.random() * 202) + 1;
+  const [isWinner, setIsWinner] = useState(false);
+  const [isLooser, setIsLooser] = useState(false);
 
   // Récupération du personnage aléatoire
   useEffect(() => {
+    const token = localStorage.getItem("auth_token");
     let config = {
       method: "get",
       maxBodyLength: Infinity,
-      url: "https://api.attackontitanapi.com/characters/" + randomNumber,
-      headers: {},
+      url: "https://localhost/api/character/random-api",
+      headers: {
+        Authorization: `Bearer ${token}`,
+        "Content-Type": "application/json",
+      },
     };
     axios
       .request(config)
@@ -39,25 +45,41 @@ const ImagePage = () => {
             backgroundColor: "#f9fafb",
           }}
         >
-          <Typography.Title>
-            {snkPersonal ? snkPersonal.name : "Loading character..."}
-          </Typography.Title>
           <Image.ImageFloue
             maxTentatives={10}
-            imageUrl={snkPersonal?.img?.split("/revision")[0]}
+            imageUrl={snkPersonal?.data?.image?.split("/revision")[0]}
             children={attempt}
           />
-          <Character.ListCharacter
-            attempt={attempt}
-            setAttempt={setAttempt}
-            setListeAttempts={setListeAttempts}
-            snkPersonal={snkPersonal}
-            estClassique={false}
-          />
+          {!isLooser && !isWinner && (
+            <Character.ListCharacter
+              attempt={attempt}
+              setAttempt={setAttempt}
+              setListeAttempts={setListeAttempts}
+              snkPersonal={snkPersonal}
+              estClassique={false}
+              setIsLooser={setIsLooser}
+              setIsWinner={setIsWinner}
+            />
+          )}
+          <Typography.Paragraph>Attempts: {attempt} / 12</Typography.Paragraph>
           <Attempt.ListeAttempt
             ListeAttempt={listeAttempts}
             attempt={attempt}
           />
+          {isWinner && (
+            <Winner.WinnerCharacter
+              isLooser={isLooser}
+              attempt={attempt}
+              character={snkPersonal.data}
+            />
+          )}
+          {isLooser && (
+            <Winner.WinnerCharacter
+              isLooser={isLooser}
+              attempt={attempt}
+              character={snkPersonal.data}
+            />
+          )}
         </div>
       ) : (
         <p>Loading...</p>
