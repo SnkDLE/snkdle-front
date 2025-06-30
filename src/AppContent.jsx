@@ -20,8 +20,6 @@ const AppContent = () => {
 
   const getPageContent = () => {
     switch (slug) {
-      case "home":
-        return <Accueil />;
       case "classique":
         return <Classique />;
       case "image":
@@ -29,7 +27,7 @@ const AppContent = () => {
       case "about":
         return <About />;
       default:
-        return <Accueil />;
+        return <Classique />;
     }
   };
 
@@ -47,7 +45,6 @@ const AppContent = () => {
   const menu = [
     { slug: "classique", text: "Classique" },
     { slug: "image", text: "Image" },
-    { slug: "test", text: "Test" },
   ];
   const sousMenu = [
     { slug: "about", text: "About" },
