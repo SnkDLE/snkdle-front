@@ -1,5 +1,6 @@
 import { useState, useContext } from "react";
 import { AuthContext } from "../../context/AuthContext";
+import axios from "axios";
 
 const RegisterPage = ({ switchToLogin }) => {
   const { login } = useContext(AuthContext);
@@ -15,19 +16,33 @@ const RegisterPage = ({ switchToLogin }) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const res = await fetch("https://localhost/api/auth/register", {
+      let config = {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(form),
-      });
+        maxBodyLength: Infinity,
+        url: "https://localhost/api/auth/register",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        data: JSON.stringify({
+          username: form.username,
+          email: form.email,
+          password: form.password,
+        }),
+      };
 
-      const data = await res.json();
-
-      if (res.ok) {
-        login(data.apiToken); // auto-login après inscription
-      } else {
-        alert(data.error || "Erreur d'inscription");
-      }
+      axios
+        .request(config)
+        .then((response) => {
+          if (response.data.apiToken) {
+            login(response.data.apiToken);
+          } else {
+            alert("Erreur lors de l'inscription");
+          }
+        })
+        .catch((error) => {
+          console.error("Erreur lors de l'inscription:", error);
+          alert(error.response?.data?.error || "Erreur d'inscription");
+        });
     } catch (err) {
       console.error(err);
       alert("Erreur réseau");

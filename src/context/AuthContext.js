@@ -1,4 +1,5 @@
 import { createContext, useEffect, useState } from "react";
+import axios from "axios";
 
 const AuthContext = createContext();
 
@@ -9,21 +10,37 @@ const AuthProvider = ({ children }) => {
   const checkToken = async () => {
     try {
       const token = localStorage.getItem("auth_token");
-      const response = await fetch("https://localhost/api/auth/me", {
+
+      if (!token) {
+        console.warn("Aucun token trouvé, utilisateur non authentifié");
+        return;
+      }
+
+      let config = {
+        method: "get",
+        maxBodyLength: Infinity,
+        url: "https://localhost/api/auth/me",
         headers: {
           Authorization: `Bearer ${token}`,
           "Content-Type": "application/json",
         },
-      });
+      };
 
-      if (response.ok) {
-        const data = await response.json();
-        setIsAuthenticated(true);
-        setUser(data);
-      } else {
-        console.warn("Token invalide ou expiré");
-        logout();
-      }
+      axios
+        .request(config)
+        .then((response) => {
+          if (response.status === 200) {
+            setIsAuthenticated(true);
+            setUser(response.data);
+          } else {
+            console.warn("Token invalide ou expiré");
+            logout();
+          }
+        })
+        .catch((error) => {
+          console.log(error);
+          logout();
+        });
     } catch (error) {
       console.log("Erreur lors de la vérification du token:", error);
     }
@@ -44,15 +61,19 @@ const AuthProvider = ({ children }) => {
   };
 
   const logout = async () => {
-    const token = localStorage.getItem("auth_token");
-
     try {
-      await fetch("https://localhost/api/auth/logout", {
+      const token = localStorage.getItem("auth_token");
+      let config = {
         method: "POST",
+        maxBodyLength: Infinity,
+        url: "https://localhost/api/auth/logout",
         headers: {
           Authorization: `Bearer ${token}`,
+          "Content-Type": "application/json",
         },
-      });
+      };
+
+      axios.request(config);
     } catch (e) {
       console.warn("Erreur logout backend");
     }

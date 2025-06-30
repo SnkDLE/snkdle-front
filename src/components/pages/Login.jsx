@@ -1,5 +1,6 @@
 import { useState, useContext } from "react";
 import { AuthContext } from "../../context/AuthContext";
+import axios from "axios";
 
 const LoginPage = ({ switchToRegister }) => {
   const [loginValue, setLoginValue] = useState("");
@@ -10,19 +11,32 @@ const LoginPage = ({ switchToRegister }) => {
     e.preventDefault();
 
     try {
-      const response = await fetch("https://localhost/api/auth/login", {
+      let config = {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ login: loginValue, password }),
-      });
+        maxBodyLength: Infinity,
+        url: "https://localhost/api/auth/login",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        data: JSON.stringify({
+          login: loginValue,
+          password: password,
+        }),
+      };
 
-      if (response.ok) {
-        const data = await response.json();
-        login(data.apiToken);
-      } else {
-        const err = await response.json();
-        alert(err.error || "Erreur de connexion");
-      }
+      axios
+        .request(config)
+        .then((response) => {
+          if (response.data.apiToken) {
+            login(response.data.apiToken);
+          } else {
+            alert("Identifiants incorrects");
+          }
+        })
+        .catch((error) => {
+          console.error("Erreur lors de la connexion:", error);
+          alert(error.response?.data?.error || "Erreur de connexion");
+        });
     } catch (error) {
       alert("Erreur réseau");
     }
