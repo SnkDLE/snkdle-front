@@ -9,6 +9,7 @@ const ListCharacter = ({
   snkPersonal,
   estClassique,
   setIsWinner,
+  setIsLooser,
 }) => {
   const [listeSnkPersonal, setListeSnkPersonal] = useState([]);
   const [perso, setPerso] = useState("");
@@ -114,6 +115,7 @@ const ListCharacter = ({
 
   // mode image
   const compareCharacters = (character, snkPersonal) => {
+    console.log("compareCharacters", character, snkPersonal);
     let nameColor = "";
     if (snkPersonal.data.id === character.id) {
       nameColor = "green";
@@ -131,6 +133,9 @@ const ListCharacter = ({
     ]);
 
     setIsWinner(snkPersonal.data.id === character.id);
+    if (attempt >= 11 && snkPersonal.data.id !== character.id) {
+      setIsLooser(true);
+    }
   };
 
   const handleInputBlur = () => {
