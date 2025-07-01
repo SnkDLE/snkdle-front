@@ -1,0 +1,182 @@
+body {
+  background: url('/public/aot-wall-bg.jpg') center/cover no-repeat fixed, #232323;
+  color: #e0d6c3;
+  font-family: 'Oswald', 'Bebas Neue', Arial, sans-serif;
+  min-height: 100vh;
+  position: relative;
+}
+body::after {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0,0,0,0.85);
+  pointer-events: none;
+  z-index: 1;
+}
+#root, .App {
+  position: relative;
+  z-index: 2;
+}
+
+.aot-header {
+  background: rgba(34, 34, 34, 0.95);
+  border-bottom: 4px solid #7a3b1e;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.7);
+  padding: 2rem 0 1rem 0;
+  text-align: center;
+}
+
+.aot-logo {
+  width: 140px;
+  height: auto;
+  margin-bottom: 1.2rem;
+  margin-top: 0.5rem;
+  filter: drop-shadow(0 0 10px #7a3b1e);
+}
+
+.aot-title {
+  font-family: 'UnifrakturCook', cursive, serif !important;
+  font-size: 3.2rem;
+  letter-spacing: 2px;
+  color: #e0d6c3;
+  text-shadow: 2px 2px 8px #000, 0 0 10px #7a3b1e;
+  margin-bottom: 0.2rem;
+  margin-top: 0;
+}
+
+.aot-dle {
+  font-family: 'UnifrakturCook', cursive, serif !important;
+  font-size: 2.2rem;
+  color: #b22222;
+  margin-bottom: 0.5rem;
+  text-shadow: 2px 2px 8px #000, 0 0 10px #7a3b1e;
+}
+
+.aot-date {
+  color: #e0d6c3;
+  font-size: 1.1rem;
+  margin-bottom: 2.5rem;
+  text-align: center;
+  letter-spacing: 1px;
+  font-family: 'Oswald', Arial, sans-serif;
+}
+
+.aot-menu-btns {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  width: 100%;
+  max-width: 340px;
+  align-items: center;
+  justify-content: center;
+}
+
+.aot-btn {
+  font-family: 'CloisterBlack', 'Oswald', Arial, sans-serif !important;
+  background: linear-gradient(90deg, #3a3a3a 0%, #7a3b1e 100%);
+  color: #fff;
+  border: 2px solid #b22222;
+  border-radius: 12px;
+  padding: 1.1rem 2rem;
+  font-size: 1.5rem;
+  cursor: pointer;
+  margin: 0.5rem 0;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.5);
+  transition: background 0.3s, transform 0.2s;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  justify-content: center;
+  font-weight: 400;
+}
+.aot-btn:hover {
+  background: linear-gradient(90deg, #7a3b1e 0%, #3a3a3a 100%);
+  color: #b22222;
+  transform: scale(1.05) rotate(-1deg);
+}
+
+.aot-btn-retour {
+  background: transparent;
+  color: #e0d6c3;
+  border: none;
+  font-size: 1.1rem;
+  margin: 1.5rem 0 0 1.5rem;
+  cursor: pointer;
+  text-align: left;
+}
+
+.aot-mode-content {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+  position: relative;
+  z-index: 2;
+}
+
+.aot-input {
+  width: 100%;
+  max-width: 350px;
+  background: rgba(34, 34, 34, 0.92);
+  color: #e0d6c3;
+  border: 2px solid #7a3b1e;
+  border-radius: 8px;
+  padding: 0.8rem 1.2rem;
+  font-size: 1.1rem;
+  font-family: 'Oswald', Arial, sans-serif;
+  margin: 1.2rem 0 1.5rem 0;
+  outline: none;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+  transition: border 0.2s, box-shadow 0.2s;
+  box-sizing: border-box;
+}
+.aot-input:focus {
+  border: 2px solid #b22222;
+  box-shadow: 0 0 0 2px #7a3b1e55;
+}
+
+.aot-card {
+  background: rgba(44, 36, 28, 0.92);
+  border: 2px solid #7a3b1e;
+  border-radius: 14px;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.7);
+  padding: 2.5rem 3rem;
+  margin: 2.5rem auto 0 auto;
+  max-width: 500px;
+  width: 100%;
+  position: relative;
+  box-sizing: border-box;
+}
+
+.aot-blood {
+  color: #b22222;
+  font-weight: bold;
+  text-shadow: 0 0 8px #7a3b1e, 0 0 2px #fff;
+}
+
+/* Footer transparent */
+footer, .footer, .Container__Footer-sc { background: transparent !important; box-shadow: none !important; border: none !important; }
+
+.aot-header-block {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 3.5rem;
+  margin-top: 2.5rem;
+}
+
+.aot-menu-central {
+  min-height: 100vh;
+  width: 100vw;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  position: relative;
+  z-index: 2;
+  text-align: center;
+}
