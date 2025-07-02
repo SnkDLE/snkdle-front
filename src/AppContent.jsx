@@ -16,6 +16,7 @@ import {
   Images,
   Button,
 } from "./components/atoms";
+import { Buttons } from "./components/molecules";
 import { FaQuestionCircle, FaRegImage } from "react-icons/fa";
 
 const AppContent = () => {
@@ -61,6 +62,16 @@ const AppContent = () => {
   if (!selectedMode) {
     return (
       <Container.All>
+        <Icons.Setting onClick={() => setIsDeployed(!isDeployed)} />
+        {isDeployed && (
+          <>
+            <Buttons.ToggleNight />
+            <Typography.Paragraph>
+              Bonjour {user?.username || "Michel"}
+            </Typography.Paragraph>
+            <Button.ButtonMenu onClick={logout}>Disconnect</Button.ButtonMenu>
+          </>
+        )}
         <Container.MenuContainer>
           <Container.HeaderMenu>
             <Images.Logo
