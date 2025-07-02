@@ -1,6 +1,7 @@
 import { useState, useContext } from "react";
 import { AuthContext } from "../../context/AuthContext";
 import axios from "axios";
+import { Container, Typography, Button, Form, Input } from "../atoms";
 
 const RegisterPage = ({ switchToLogin }) => {
   const { login } = useContext(AuthContext);
@@ -50,26 +51,24 @@ const RegisterPage = ({ switchToLogin }) => {
   };
 
   return (
-    <div style={{ padding: 20 }}>
-      <h2>Créer un compte</h2>
-      <form onSubmit={handleSubmit}>
-        <input
+    <Container.Card>
+      <Typography.TitleAot>Créer un compte</Typography.TitleAot>
+      <Form.Form onSubmit={handleSubmit}>
+        <Input.Input
           name="username"
           placeholder="Nom d'utilisateur"
           value={form.username}
           onChange={handleChange}
           required
         />
-        <br />
-        <input
+        <Input.Input
           name="email"
           placeholder="Email"
           value={form.email}
           onChange={handleChange}
           required
         />
-        <br />
-        <input
+        <Input.Input
           name="password"
           placeholder="Mot de passe"
           type="password"
@@ -77,16 +76,15 @@ const RegisterPage = ({ switchToLogin }) => {
           onChange={handleChange}
           required
         />
-        <br />
-        <button type="submit">S'inscrire</button>
-        <p>
-          Déjà un compte ?{" "}
-          <button type="button" onClick={switchToLogin}>
+        <Button.ButtonMenu type="submit">S'inscrire</Button.ButtonMenu>
+        <Container.Switch>
+          Pas de compte ?
+          <Typography.SwitchLoginRegister onClick={switchToLogin}>
             Se connecter
-          </button>
-        </p>
-      </form>
-    </div>
+          </Typography.SwitchLoginRegister>
+        </Container.Switch>
+      </Form.Form>
+    </Container.Card>
   );
 };
 

@@ -1,5 +1,4 @@
 import "./App.css";
-import { Button, Menu } from "./components/molecules";
 import { useState, useContext } from "react";
 import {
   Accueil,
@@ -10,16 +9,26 @@ import {
   Register,
 } from "./components/pages";
 import { AuthContext } from "./context/AuthContext";
-import { Container, Icons, Typography } from "./components/atoms";
+import {
+  Container,
+  Icons,
+  Typography,
+  Images,
+  Button,
+} from "./components/atoms";
+import { Buttons } from "./components/molecules";
+import { FaQuestionCircle, FaRegImage } from "react-icons/fa";
 
 const AppContent = () => {
   const { isAuthenticated, logout, user } = useContext(AuthContext);
-  const [slug, setSlug] = useState("classique");
+  const [selectedMode, setSelectedMode] = useState(null);
   const [slugLogin, setSlugLogin] = useState("login");
   const [isDeployed, setIsDeployed] = useState(false);
 
+  const today = new Date().toLocaleDateString("fr-FR");
+
   const getPageContent = () => {
-    switch (slug) {
+    switch (selectedMode) {
       case "classique":
         return <Classique />;
       case "image":
@@ -42,50 +51,64 @@ const AppContent = () => {
     }
   };
 
-  const menu = [
-    { slug: "classique", text: "Classique" },
-    { slug: "image", text: "Image" },
-  ];
-  const sousMenu = [
-    { slug: "about", text: "About" },
-    { slug: "contact", text: "Contact" },
-    { slug: "help", text: "Help" },
-  ];
-
   if (!isAuthenticated) {
-    return <Container.Base>{getLogPageContent()}</Container.Base>;
+    return (
+      <Container.All>
+        <Container.Base>{getLogPageContent()}</Container.Base>
+      </Container.All>
+    );
   }
 
-  return (
-    <>
-      <Menu.Bar>
-        {menu.map((x, i) => (
-          <Menu.Tab key={i} callBack={() => setSlug(x.slug)}>
-            {x.text}
-          </Menu.Tab>
-        ))}
+  if (!selectedMode) {
+    return (
+      <Container.All>
         <Icons.Setting onClick={() => setIsDeployed(!isDeployed)} />
         {isDeployed && (
           <>
-            <Button.ToggleNight />
+            <Buttons.ToggleNight />
             <Typography.Paragraph>
               Bonjour {user?.username || "Michel"}
             </Typography.Paragraph>
-            <Button.Default callBack={logout}>Disconnect</Button.Default>
+            <Button.ButtonMenu onClick={logout}>Disconnect</Button.ButtonMenu>
           </>
         )}
-      </Menu.Bar>
+        <Container.MenuContainer>
+          <Container.HeaderMenu>
+            <Images.Logo
+              src="/aot-logo.jpg"
+              alt="Attack on Titan Logo"
+              className="aot-logo"
+            />
+            <Typography.TitleAot>Attack on Titan</Typography.TitleAot>
+            <Typography.Dle>DLE</Typography.Dle>
+            <Typography.Today>{today}</Typography.Today>
+          </Container.HeaderMenu>
+          <Container.ButtonMenu>
+            <Button.ButtonMenu onClick={() => setSelectedMode("classique")}>
+              <FaQuestionCircle
+                style={{ marginRight: 12, fontSize: "1.5em" }}
+              />
+              Classique
+            </Button.ButtonMenu>
+            <Button.ButtonMenu onClick={() => setSelectedMode("image")}>
+              <FaRegImage style={{ marginRight: 12, fontSize: "1.5em" }} />{" "}
+              Image
+            </Button.ButtonMenu>
+          </Container.ButtonMenu>
+        </Container.MenuContainer>
+      </Container.All>
+    );
+  }
 
-      {getPageContent()}
-
-      <Menu.SousMenu>
-        {sousMenu.map((x, i) => (
-          <Menu.Tab key={i} callBack={() => setSlug(x.slug)}>
-            {x.text}
-          </Menu.Tab>
-        ))}
-      </Menu.SousMenu>
-    </>
+  return (
+    <Container.All>
+      <Container.ModeContent>
+        <Button.ButtonReturn onClick={() => setSelectedMode(null)}>
+          &larr; Retour au menu
+        </Button.ButtonReturn>
+        {getPageContent()}
+      </Container.ModeContent>
+    </Container.All>
   );
 };
 

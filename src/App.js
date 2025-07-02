@@ -3,6 +3,7 @@ import { NightModeProvider } from "./context/NigthModeContext";
 import { AuthProvider } from "./context/AuthContext";
 import { ThemeProvider } from "styled-components";
 import { useState } from "react";
+import { Container } from "./components/atoms";
 import AppContent from "./AppContent";
 
 function App() {
@@ -22,16 +23,16 @@ function App() {
   };
   const dayTheme = {
     default: {
-      color: "black",
+      color: "#e0d6c3",
     },
     typography: {
-      subTitle: "black",
+      subTitle: "#e0d6c3",
     },
     container: {
-      primary: "white",
+      primary: "#e0d6c3",
     },
-    color: "black",
-    bgColor: "white",
+    color: "#e0d6c3",
+    bgColor: "rgba(44, 36, 28, 0.92)",
   };
 
   const [nightMode, setNightMode] = useState(
