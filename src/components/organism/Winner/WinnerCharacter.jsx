@@ -5,25 +5,25 @@ import * as Winner from "../../molecules/Winner";
 const WinnerCharacter = ({ character, attempt, isLooser }) => {
   console.log("WinnerCharacter", character, attempt);
   return (
-    <Container.Base>
+    <Container.Card>
       {isLooser ? (
         <Container.Flex>
-          <Typography.Response color="red">
+          <Typography.TitleAot color="red">
             Vous avez perdu, Essayez encore !
-          </Typography.Response>
+          </Typography.TitleAot>
         </Container.Flex>
       ) : (
         <Container.Flex>
-          <Typography.Response color="green">
+          <Typography.TitleAot color="green">
             Vous avez gagné, Bravo !
-          </Typography.Response>
+          </Typography.TitleAot>
         </Container.Flex>
       )}
       <Container.Base>
         <Winner.CharacterFound character={character} />
         <Winner.Statistique attempt={attempt} />
       </Container.Base>
-    </Container.Base>
+    </Container.Card>
   );
 };
 

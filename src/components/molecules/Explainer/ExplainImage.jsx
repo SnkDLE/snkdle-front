@@ -1,15 +1,15 @@
 import React from "react";
 import { Container, Typography } from "../../atoms";
 
-const ExplainClassique = () => {
+const ExplainImage = () => {
   return (
     <Container.Explain>
-      <Typography.TitleAot>Classique</Typography.TitleAot>
+      <Typography.TitleAot>Image</Typography.TitleAot>
       <Typography.Paragraph>
-        Trouve le personnage SNK du jour !
+        Trouve le personnage SNK via l'image !
       </Typography.Paragraph>
     </Container.Explain>
   );
 };
 
-export default ExplainClassique;
+export default ExplainImage;

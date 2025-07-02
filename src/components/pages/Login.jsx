@@ -1,5 +1,14 @@
 import { useState, useContext } from "react";
 import { AuthContext } from "../../context/AuthContext";
+import {
+  Container,
+  Typography,
+  Icons,
+  Images,
+  Button,
+  Form,
+  Input,
+} from "../atoms";
 import axios from "axios";
 
 const LoginPage = ({ switchToRegister }) => {
@@ -18,10 +27,10 @@ const LoginPage = ({ switchToRegister }) => {
         headers: {
           "Content-Type": "application/json",
         },
-        data: JSON.stringify({
+        data: {
           login: loginValue,
           password: password,
-        }),
+        },
       };
 
       axios
@@ -43,10 +52,10 @@ const LoginPage = ({ switchToRegister }) => {
   };
 
   return (
-    <div style={{ padding: 20 }}>
-      <h2>Connexion</h2>
-      <form onSubmit={handleSubmit}>
-        <input
+    <Container.Card>
+      <Typography.TitleAot>Connexion</Typography.TitleAot>
+      <Form.Form onSubmit={handleSubmit}>
+        <Input.Input
           type="text"
           name="login"
           placeholder="Nom d'utilisateur ou email"
@@ -54,8 +63,7 @@ const LoginPage = ({ switchToRegister }) => {
           onChange={(e) => setLoginValue(e.target.value)}
           required
         />
-        <br />
-        <input
+        <Input.Input
           type="password"
           name="password"
           placeholder="Mot de passe"
@@ -63,20 +71,15 @@ const LoginPage = ({ switchToRegister }) => {
           onChange={(e) => setPassword(e.target.value)}
           required
         />
-        <br />
-        <button type="submit">Se connecter</button>
-        <br />
-        <p>
-          Pas de compte ?{" "}
-          <span
-            style={{ cursor: "pointer", color: "blue" }}
-            onClick={switchToRegister}
-          >
+        <Button.ButtonMenu type="submit">Se connecter</Button.ButtonMenu>
+        <Container.Switch>
+          Pas de compte ?
+          <Typography.SwitchLoginRegister onClick={switchToRegister}>
             S'inscrire
-          </span>
-        </p>
-      </form>
-    </div>
+          </Typography.SwitchLoginRegister>
+        </Container.Switch>
+      </Form.Form>
+    </Container.Card>
   );
 };
 

@@ -33,7 +33,7 @@ const Classique = () => {
   }, []);
 
   return (
-    <Container.Base>
+    <Container.Card>
       <Explainer.ExplainClassique />
       {!isWinner && (
         <Character.ListCharacter
@@ -55,7 +55,7 @@ const Classique = () => {
           character={snkPersonal.data}
         />
       )}
-    </Container.Base>
+    </Container.Card>
   );
 };
 

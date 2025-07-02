@@ -1,6 +1,7 @@
 import React from "react";
 import { useState, useEffect } from "react";
 import axios from "axios";
+import { Container, Input } from "../../atoms";
 
 const ListCharacter = ({
   attempt,
@@ -143,8 +144,8 @@ const ListCharacter = ({
   };
 
   return (
-    <div>
-      <input
+    <Container.Base>
+      <Input.Input
         type="text"
         value={perso}
         onChange={handleInputChange}
@@ -155,23 +156,31 @@ const ListCharacter = ({
 
       {/* Dropdown des suggestions */}
       {showDropdown && listeSnkPersonal?.length > 0 && (
-        <div>
+        <Container.List>
           {listeSnkPersonal.map((character) => (
-            <div
+            <Container.Character
               key={character.id}
               onClick={() => handleSelectCharacter(character)}
             >
-              <img
-                src={character?.image?.split("/revision")[0]}
-                alt={character.name}
-                style={{ width: "50px", height: "50px" }}
-              />
+              {character.image ? (
+                <img
+                  src={character.image.split("/revision")[0]}
+                  alt={character.name}
+                  style={{ width: "50px", height: "50px", marginRight: "10px" }}
+                />
+              ) : (
+                <span
+                  style={{ width: "50px", height: "50px", marginRight: "10px" }}
+                >
+                  No Image
+                </span>
+              )}
               {character.name}
-            </div>
+            </Container.Character>
           ))}
-        </div>
+        </Container.List>
       )}
-    </div>
+    </Container.Base>
   );
 };
 

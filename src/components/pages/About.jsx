@@ -3,12 +3,16 @@ import { Container, Typography } from "../atoms";
 
 const About = () => {
   return (
-    <Container.Flex>
-      <Container.Base>
-        <Typography.Title>About</Typography.Title>
-        <Typography.Paragraph>This is the about page.</Typography.Paragraph>
-      </Container.Base>
-    </Container.Flex>
+    <Container.Card>
+      <Typography.TitleAot>À propos</Typography.TitleAot>
+      <Typography.Paragraph color="white">
+        Ce jeu est inspiré de l'univers de l'Attaque des Titans.
+      </Typography.Paragraph>
+      <Typography.Paragraph color="white">
+        Il a été développé dans le cadre d'un projet de fin d'études à Ynov
+        Campus Lyon.
+      </Typography.Paragraph>
+    </Container.Card>
   );
 };
 

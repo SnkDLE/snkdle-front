@@ -10,18 +10,18 @@ const AttemptClassique = ({ character }) => {
           alt={character.name}
           style={{ width: "100px", height: "100px" }}
         />
-        <Typography.Response color={character.ageColor}>
+        <Container.Response color={character.ageColor}>
           {character.age}
-        </Typography.Response>
-        <Typography.Response color={character.genderColor}>
+        </Container.Response>
+        <Container.Response color={character.genderColor}>
           {character.gender}
-        </Typography.Response>
-        <Typography.Response color={character.statusColor}>
+        </Container.Response>
+        <Container.Response color={character.statusColor}>
           {character.status}
-        </Typography.Response>
-        <Typography.Response color={character.speciesColor}>
+        </Container.Response>
+        <Container.Response color={character.speciesColor}>
           {character.species}
-        </Typography.Response>
+        </Container.Response>
       </Container.Flex>
     </Container.Base>
   );

@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { Container, Typography } from "../atoms";
+import { Explainer } from "../molecules";
 import { Image } from "../organism";
 import { Attempt, Character } from "../organism";
 import { Winner } from "../organism";
@@ -35,16 +36,10 @@ const ImagePage = () => {
   }, []);
 
   return (
-    <Container.Base>
+    <Container.Card>
+      <Explainer.ExplainImage />
       {snkPersonal ? (
-        <div
-          style={{
-            display: "flex",
-            flexDirection: "column",
-            alignItems: "center",
-            backgroundColor: "#f9fafb",
-          }}
-        >
+        <Container.Card>
           <Image.ImageFloue
             maxTentatives={10}
             imageUrl={snkPersonal?.data?.image?.split("/revision")[0]}
@@ -80,11 +75,11 @@ const ImagePage = () => {
               character={snkPersonal.data}
             />
           )}
-        </div>
+        </Container.Card>
       ) : (
         <p>Loading...</p>
       )}
-    </Container.Base>
+    </Container.Card>
   );
 };
 
